@@ -33,40 +33,28 @@ void swap(int &x,int &y){
 	y=x;
 	x=temp;
 }
-string decToOctal(int n){
-    int octalNum[100];
-    int i = 0;
-    while (n != 0) {
-        octalNum[i] = n % 8;
-        n = n / 8;
-        i++;
-    }
-    string ans="";
-    for (int j = i - 1; j >= 0; j--)
-        ans+=char(octalNum[j]+'0');
-    return ans;
-}
-string encrypt(string Str){
-    string newstr="";
-    // WRITE YOUR CODE HERE
-    Str=to_upper(Str);
-    int shift=0;
-    for(auto &x:Str) shift+=__builtin_popcount(x+0);
-    newstr+=decToOctal(shift);
-    for(auto &x:Str){
-        newstr+=char((x-'A'+shift)%26 + 'A');
-    }
-    return newstr;
-}
 void solve(){
-    string s;cin>>s;
-    cout<<s<<" ";
-    cout<<encrypt(s);
+    int n;cin>>n;
+    vector<pair<int,int>>vp(n);
+    for(int i=0;i<n;i++){
+        cin>>vp[i].first;
+        vp[i].second=i;
+    }
+    srt(vp);
+    int sm=0;
+    for(auto &x:vp) sm+=(x.first-vp[0].first);
+    vi ans(n);
+    ans[vp[0].second]=sm;
+    for(int i=1;i<n;i++){
+        sm -= (n-2*i) * (vp[i].first-vp[i-1].first);
+        ans[vp[i].second] = sm;
+    }
+    for(auto &x:ans) cout<<x+n<<" ";
+    cout<<ed;
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-    // pre();
     int _t=1;
-    // cin>>_t;
+    cin>>_t;
     while(_t--) solve();
 }

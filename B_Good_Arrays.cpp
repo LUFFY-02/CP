@@ -33,39 +33,24 @@ void swap(int &x,int &y){
 	y=x;
 	x=temp;
 }
-string decToOctal(int n){
-    int octalNum[100];
-    int i = 0;
-    while (n != 0) {
-        octalNum[i] = n % 8;
-        n = n / 8;
-        i++;
+int countDistinctCategories(vector<int> &cat,int n){
+    vector<int> dp(n+1);
+    unordered_map<int,int>mp;
+    for(int i=1;i<=n;i++){
+        if(mp.find(cat[i-1])==mp.end()) dp[i]=dp[i-1]+i;
+        else dp[i]=dp[i-1]+(i-mp[cat[i-1]]);
+        mp[cat[i-1]]=i;
     }
-    string ans="";
-    for (int j = i - 1; j >= 0; j--)
-        ans+=char(octalNum[j]+'0');
-    return ans;
-}
-string encrypt(string Str){
-    string newstr="";
-    // WRITE YOUR CODE HERE
-    Str=to_upper(Str);
-    int shift=0;
-    for(auto &x:Str) shift+=__builtin_popcount(x+0);
-    newstr+=decToOctal(shift);
-    for(auto &x:Str){
-        newstr+=char((x-'A'+shift)%26 + 'A');
-    }
-    return newstr;
+    return accumulate(dp.begin(),dp.end(),0ll);
 }
 void solve(){
-    string s;cin>>s;
-    cout<<s<<" ";
-    cout<<encrypt(s);
+    int n;cin>>n;
+    vi v(n);
+    for(auto &x:v) cin>>x;
+    cout<<countDistinctCategories(v,n);
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-    // pre();
     int _t=1;
     // cin>>_t;
     while(_t--) solve();

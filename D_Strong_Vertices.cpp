@@ -33,40 +33,24 @@ void swap(int &x,int &y){
 	y=x;
 	x=temp;
 }
-string decToOctal(int n){
-    int octalNum[100];
-    int i = 0;
-    while (n != 0) {
-        octalNum[i] = n % 8;
-        n = n / 8;
-        i++;
-    }
-    string ans="";
-    for (int j = i - 1; j >= 0; j--)
-        ans+=char(octalNum[j]+'0');
-    return ans;
-}
-string encrypt(string Str){
-    string newstr="";
-    // WRITE YOUR CODE HERE
-    Str=to_upper(Str);
-    int shift=0;
-    for(auto &x:Str) shift+=__builtin_popcount(x+0);
-    newstr+=decToOctal(shift);
-    for(auto &x:Str){
-        newstr+=char((x-'A'+shift)%26 + 'A');
-    }
-    return newstr;
-}
+int y;
 void solve(){
-    string s;cin>>s;
-    cout<<s<<" ";
-    cout<<encrypt(s);
+    int n;cin>>n;
+    vi a(n),b(n),c(n),ans;
+    for(auto &x:a) cin>>x;
+    for(auto &x:b) cin>>x;
+    for(int i=0;i<n;i++) c[i]=a[i]-b[i];
+    srt(c);
+    for(int i=0;i<n;i++){
+        if(a[i]-b[i]==c[n-1]) ans.eb(i);
+    }
+    cout<<ans.size()<<ed;
+    for(auto &x:ans) cout<<x+1<<" ";
+    cout<<ed;
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-    // pre();
     int _t=1;
-    // cin>>_t;
+    cin>>_t;
     while(_t--) solve();
 }
