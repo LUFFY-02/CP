@@ -33,30 +33,18 @@ void swap(int &x,int &y){
 	y=x;
 	x=temp;
 }
-void solve(){
-    string s;cin>>s;
-    int last=s.size(),carry=0;
-    for(int i=s.size()-1;i>=0;i--){
-        if(carry && s[i]<'9') s[i]++,carry=0;
-        if(carry){
-            last=i;
-            continue;
-        };
-        if(s[i]>'4') last=i,carry=1;
+signed main()
+{
+    int t;cin>>t;
+    while(t--){
+        int n;cin>>n;
+        int ans=0;
+        while(n>1){
+            if(n&1) n--;
+            else n/=2;
+            ans++;
+        }
+        cout<<ans<<endl;
     }
-    if(carry){
-        cout<<1;
-        for(auto &x:s) cout<<0;
-    }
-    else{
-        for(int i=0;i<last;i++) cout<<s[i];
-        for(int i=last;i<s.size();i++) cout<<0;
-    }
-    cout<<ed;
-}
-signed  main(){
-	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-    int _t=1;
-    cin>>_t;
-    while(_t--) solve();
+    return 0;
 }

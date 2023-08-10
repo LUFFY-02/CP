@@ -34,27 +34,29 @@ void swap(int &x,int &y){
 	x=temp;
 }
 void solve(){
-    int n;cin>>n;
-    vector<pair<int,int>>vp(n);
-    for(int i=0;i<n;i++){
-        cin>>vp[i].first;
-        vp[i].second=i;
+    string s;cin>>s;
+    vector<int>ind;
+    int curr=0,i=1;
+    for(auto &x:s){
+        if(x==')') curr--;
+        else curr++;
+        if(curr<=0) ind.eb(i),curr=0;
+        i++;
     }
-    srt(vp);
-    int sm=0;
-    for(auto &x:vp) sm+=(x.first-vp[0].first);
-    vi ans(n);
-    ans[vp[0].second]=sm;
-    for(int i=1;i<n;i++){
-        sm -= (n-2*i) * (vp[i].first-vp[i-1].first);
-        ans[vp[i].second] = sm;
+    int ans=0,ct=1;
+    for(int i=1;i<ind.size();i++){
+        int diff=ind[i]-ind[i-1];
+        if(diff==1) continue;
+        if(diff==ans) ct++;
+        else if(diff>ans){
+            ans=diff,ct=1;
+        }
     }
-    for(auto &x:ans) cout<<x+n<<" ";
-    cout<<ed;
+    cout<<ans<<" "<<ct<<ed;
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
     int _t=1;
-    cin>>_t;
+    // cin>>_t;
     while(_t--) solve();
-} 
+}

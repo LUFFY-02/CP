@@ -33,21 +33,36 @@ void swap(int &x,int &y){
 	y=x;
 	x=temp;
 }
-int countDistinctCategories(vector<int> &cat,int n){
-    vector<int> dp(n+1);
-    unordered_map<int,int>mp;
-    for(int i=1;i<=n;i++){
-        if(mp.find(cat[i-1])==mp.end()) dp[i]=dp[i-1]+i;
-        else dp[i]=dp[i-1]+(i-mp[cat[i-1]]);
-        mp[cat[i-1]]=i;
+int candy(vector<int>& ratings) {
+    int n = ratings.size();
+    int candy = n, i=1;
+    while(i<n){
+        if(ratings[i] == ratings[i-1]){
+            i++;
+            continue;
+        }
+        int peak = 0;
+        while(ratings[i] > ratings [i-1]){
+            peak++;
+            candy += peak;
+            i++;
+            if(i == n) return candy;
+        }
+        int valley = 0;
+        while(i<n && ratings[i] < ratings[i-1]){
+            valley++;
+            candy += valley;
+            i++;
+        }
+        candy -= min(peak, valley); //Keep only the higher peak
     }
-    return accumulate(dp.begin(),dp.end(),0ll);
+    return candy;
 }
 void solve(){
     int n;cin>>n;
     vi v(n);
     for(auto &x:v) cin>>x;
-    cout<<countDistinctCategories(v,n);
+    cout<<candy(v);
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);

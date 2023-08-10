@@ -34,27 +34,56 @@ void swap(int &x,int &y){
 	x=temp;
 }
 void solve(){
-    int n;cin>>n;
-    vector<pair<int,int>>vp(n);
-    for(int i=0;i<n;i++){
-        cin>>vp[i].first;
-        vp[i].second=i;
+    int n,m;cin>>n>>m;
+    vector<vector<pair<int,int>>> v(n);
+    for(int i=0;i<m;i++){
+        int x,y,z;cin>>x>>y>>z;
+        if(x!=y){
+            v[x-1].pb({y-1,z});
+            v[y-1].pb({x-1,z});
+        }
     }
-    srt(vp);
-    int sm=0;
-    for(auto &x:vp) sm+=(x.first-vp[0].first);
-    vi ans(n);
-    ans[vp[0].second]=sm;
-    for(int i=1;i<n;i++){
-        sm -= (n-2*i) * (vp[i].first-vp[i-1].first);
-        ans[vp[i].second] = sm;
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+    vector<bool>vis(n,false);
+    vector<int>parent(n);
+    vector<int>ans(n,LLONG_MAX);
+    for(int i=0;i<n;i++) parent[i]=i;
+    pq.push({0,0});
+    ans[0]=0;
+    while(!pq.empty()){
+        auto top=pq.top();
+        pq.pop();
+        int w=top.first;
+        int u=top.second;
+        if(vis[u]) continue;
+        vis[u]=true;
+        for(auto &t:v[u]){
+            if(!vis[t.first] && ans[t.first] > ans[u]+t.second){
+                ans[t.first]=ans[u]+t.second;
+                parent[t.first]=u;
+                pq.push({ans[t.first],t.first});
+            }
+        }
     }
-    for(auto &x:ans) cout<<x+n<<" ";
-    cout<<ed;
+    vector<int>res;
+    int curr=n;
+    while(curr-1!=parent[curr-1]){
+        res.pb(curr);
+        curr=parent[curr-1]+1;
+        
+    }
+    if(curr!=1){
+        cout<<-1<<ed;
+    }
+    else{
+        cout<<1<<" ";
+        for(int i=res.size()-1;i>=0;i--) cout<<res[i]<<" ";
+        cout<<ed;
+    }
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
     int _t=1;
-    cin>>_t;
+    // cin>>_t;
     while(_t--) solve();
-} 
+}

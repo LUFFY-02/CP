@@ -33,28 +33,26 @@ void swap(int &x,int &y){
 	y=x;
 	x=temp;
 }
-void solve(){
+int dp[512][512];
+void solve(void){
     int n;cin>>n;
-    vector<pair<int,int>>vp(n);
+    vi v(n);
+    for(auto &x:v) cin>>x;
     for(int i=0;i<n;i++){
-        cin>>vp[i].first;
-        vp[i].second=i;
+        for(int l=0;l+i<=n;l++){
+            int r=l+i;
+            dp[l][r]=500;
+            for(int m=l;m<=r;m++){
+                if(v[l]==v[m]) dp[l][r]=min(dp[l][r],max(1,dp[l+1][m-1])+dp[m+1][r]);
+                else dp[l][r]=min(dp[l][r],dp[l][m]+dp[m+1][r]);
+            }
+        }
     }
-    srt(vp);
-    int sm=0;
-    for(auto &x:vp) sm+=(x.first-vp[0].first);
-    vi ans(n);
-    ans[vp[0].second]=sm;
-    for(int i=1;i<n;i++){
-        sm -= (n-2*i) * (vp[i].first-vp[i-1].first);
-        ans[vp[i].second] = sm;
-    }
-    for(auto &x:ans) cout<<x+n<<" ";
-    cout<<ed;
+    cout<<dp[0][n-1]<<ed;
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
     int _t=1;
-    cin>>_t;
+    // cin>>_t;
     while(_t--) solve();
-} 
+}
