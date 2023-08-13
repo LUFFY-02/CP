@@ -36,8 +36,25 @@ void swap(int &x,int &y){
 	y=x;
 	x=temp;
 }
+int tt;
 void solve(){
-
+    int n;cin>>n;
+    vector<vector<int>> v(n);
+    for(auto &x:v){
+        int m;cin>>m;
+        for(int i=0;i<m;i++) cin>>tt,x.eb(tt);
+    }
+    for(auto &x:v) srt(x);
+    int ans=0;
+    int f,s;
+    f=v[0][0],s=v[0][1];
+    for(auto &x:v){
+        ans+=x[1];
+        f=min(f,x[0]);
+        s=min(s,x[1]);
+    }
+    ans+= (f-s);
+    cout<<ans<<ed;
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
