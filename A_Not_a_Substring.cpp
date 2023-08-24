@@ -71,7 +71,19 @@ int lcm(int a,int b) {return (a / gcd(a, b)) * b;}
 // Code :)   ------------------------------------------------------------------------------------------------
 
 void solve(){
-
+    string s;cin>>s;
+    if(s=="()"){
+        no;return;
+    }
+    yes;
+    string f1,f2;
+    for(int i=0;i<s.size();i++){
+        f1+="()";
+        f2+="(";
+    }
+    for(int i=0;i<s.size();i++) f2+='(';
+    if(s==f1) cout<<f2<<ed;
+    else cout<<f1<<ed;
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);

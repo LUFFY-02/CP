@@ -35,7 +35,7 @@ void swap(int &x,int &y){
 	y=x;
 	x=temp;
 }
-// Power function with Modulo -------------------------------------------------------------------------
+// Power function with Modulo
 int m_pow(int a,int b,int m){
     int res=1;
     while(b){
@@ -45,7 +45,7 @@ int m_pow(int a,int b,int m){
     }
     return res;
 }
-// Binary GCD & LCM ----------------------------------------------------------------------------------
+// Binary GCD
 int gcd(int a, int b) {
     if (!a || !b)
         return a | b;
@@ -61,6 +61,26 @@ int gcd(int a, int b) {
 }
 int lcm(int a,int b) {return (a / gcd(a, b)) * b;}
 
+int N;
+vector<int>primes,ct;
+void helper(){
+    primes.resize(N+1,true);
+    ct.resize(N+1);
+    primes[0]=primes[1]=false;
+    for(int i=2;i<=N;i++){
+        if(primes[i]){
+            for(int j=2*i;j<=N;j+=i){
+                primes[j]=false;
+                ct[j]++;
+            }
+        }
+    }
+}
+
+
+
+
+
 
 
 
@@ -69,13 +89,15 @@ int lcm(int a,int b) {return (a / gcd(a, b)) * b;}
 
 
 // Code :)   ------------------------------------------------------------------------------------------------
-
 void solve(){
-
+    cin>>N;
+    helper();
+    int ans=count(ct.begin(),ct.begin()+N+1,2);
+    cout<<ans<<ed;
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
     int _t=1;
-    cin>>_t;
+    // cin>>_t;
     while(_t--) solve();
 }

@@ -71,11 +71,27 @@ int lcm(int a,int b) {return (a / gcd(a, b)) * b;}
 // Code :)   ------------------------------------------------------------------------------------------------
 
 void solve(){
+     std::string s;
+        std::cin >> s;
 
+        int count_01 = 0, count_10 = 0;
+        int unpaired_0 = 0, unpaired_1 = 0;
+
+        for (char c : s) {
+            if (c == '0') {
+                unpaired_0++;
+                count_01 += unpaired_1;
+            } else {
+                unpaired_1++;
+                count_10 += unpaired_0;
+            }
+        }
+
+        std::cout << std::min(count_01, count_10) << std::endl;
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
     int _t=1;
-    cin>>_t;
+    // cin>>_t;
     while(_t--) solve();
 }

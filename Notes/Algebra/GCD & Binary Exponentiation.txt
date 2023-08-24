@@ -1,0 +1,57 @@
+Binary Exponentiation ::: 
+
+To computer nth power of m, Naive method is to run it n times and complexity comes out to be O(n) which is costly for big numbers.
+
+Other method can be reducing the number of operations by changing even power to (n/2)*2 and odd to 1*(n-1) where n becomes even number and complexity comes out to be log(n).
+
+Codes :
+
+1) Naive Approach :
+
+void solve(){
+    int n,m;cin>>n>>m;
+    int res=1;
+    while(m--) res*=n;
+    cout<<res<<ed;
+}
+
+2) Optimized Approach :
+
+void solve(){
+    int n,m;cin>>n>>m;
+    int res=1;
+    while(m>0){
+        if(m&1) res*=n;
+        n*=n;
+        m>>=1;
+    }
+    cout<<res<<ed;
+}
+
+____________________________________________________________________
+____________________________________________________________________
+
+GCD * LCM = a*b 
+
+If x divides a and x divides b-a then x divides b also 
+with this logic 
+1. Euclidean algo  ::  if b is 0 then gcd is a , else its gcd(a,b-a) 
+2. More optimized  ::  gcd(a,b%a) would give same as doing (a,b-a) again nd again
+3. Binary Euclidean :: modulo operation is costly so if
+                        both even then 2*gcd(a/2,b/2)
+                        both odd then gcd(a,b-a)
+                        if 1 even then gcd(2a,b) = gcd(a,b)
+
+int gcd(int a, int b) {
+    if (!a || !b)
+        return a | b;
+    unsigned shift = __builtin_ctz(a | b);
+    a >>= __builtin_ctz(a);
+    do {
+        b >>= __builtin_ctz(b);
+        if (a > b)
+            swap(a, b);
+        b -= a;
+    } while (b);
+    return a << shift;
+}

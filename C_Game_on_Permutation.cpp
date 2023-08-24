@@ -60,17 +60,11 @@ int gcd(int a, int b) {
     return a << shift;
 }
 int lcm(int a,int b) {return (a / gcd(a, b)) * b;}
-
-
-
-
-
-
-
-
 // Code :)   ------------------------------------------------------------------------------------------------
 
 void solve(){
+
+
 
 }
 signed  main(){

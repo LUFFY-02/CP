@@ -68,10 +68,26 @@ int lcm(int a,int b) {return (a / gcd(a, b)) * b;}
 
 
 
-// Code :)   ------------------------------------------------------------------------------------------------
+// Code :)   -----------------------------------------------------------------------------------------
+int m, k, a1, a2; cin>>m>>k>>a1>>a2;
 
+if(a1>=m || (m%k<=a1 && m/k<=a2)){ cout<<0<<endl;
+
+} else{
+
+int num2 = min(m/k,a2);
+
+int num1 = min(m-knum2,a1); int rmd = m-num1-knum2;
+
+If(rmd%k==0){ cout<<rmd/k<<endl;
+
+else if((k-rmd%k) <= num1 ){ cout<<(rmd/k)+1<<endl;
+
+}
 void solve(){
-
+    vi v(4);
+    for(auto &x:v) cin>>x;
+    if(v)
 }
 signed  main(){
 	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);

@@ -1,0 +1,37 @@
+To find prime numbers or all prime factors the one Naive way to check for every number in N and check whether it is prime or not, which has complexity O(N*sqrt(N))
+
+Now there is Sieve of Eratosthenes, which has many upgradations:
+
+1. Normal Sieve
+    We mark composites as false in the primes array.
+    Complexity : N*log(log(N))
+    
+    int n;
+    vector<bool> is_prime(n+1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i <= n; i++) {
+        if (is_prime[i] && (long long)i * i <= n) {
+            for (int j = i * i; j <= n; j += i)
+                is_prime[j] = false;
+        }
+    }
+
+2. Sieving till Root
+    We only go till root(n)
+    Complexity : N*log(log(N/2)) + O(N)
+
+    int n;
+    vector<bool> is_prime(n+1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i * i <= n; i++) {
+        if (is_prime[i]) {
+            for (int j = i * i; j <= n; j += i)
+                is_prime[j] = false;
+        }
+    }
+
+3. Segmented Sieve
+    The idea of a segmented sieve is to divide the range [0..n-1] in different segments and compute primes in all segments one by one. This algorithm first uses Simple Sieve to find primes smaller than or equal to √(n).
+
+4. Linear Sieve (********)
+    
